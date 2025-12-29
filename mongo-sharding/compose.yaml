@@ -1,0 +1,93 @@
+name: mongo-sharding
+services:
+  configsvr:
+    image: dh-mirror.gitverse.ru/mongo:latest
+    container_name: configsvr
+    restart: always
+    networks:
+      app-network:
+        ipv4_address: 173.17.0.10
+    command: mongod --configsvr --replSet configReplSet --port 27017 --bind_ip_all
+    volumes:
+      - configsvr_data:/data/db
+    healthcheck:
+      test: [ "CMD", "mongo", "--eval", "db.adminCommand('ping')" ]
+      interval: 5s
+      start_period: 10s
+
+  # Первый шард
+  shard1:
+    image: dh-mirror.gitverse.ru/mongo:latest
+    container_name: shard1
+    restart: always
+    networks:
+      app-network:
+        ipv4_address: 173.17.0.9
+    volumes:
+      - shard1_data:/data/db
+    command: mongod --shardsvr --replSet shard1 --port 27017 --bind_ip_all
+    healthcheck:
+      test: [ "CMD", "mongo", "--eval", "db.adminCommand('ping')" ]
+      interval: 5s
+      start_period: 10s
+
+  # Второй шард
+  shard2:
+    container_name: shard2
+    image: dh-mirror.gitverse.ru/mongo:latest
+    restart: always
+    networks:
+      app-network:
+        ipv4_address: 173.17.0.8
+    volumes:
+      - shard2_data:/data/db
+    command: mongod --shardsvr --replSet shard2 --port 27017 --bind_ip_all
+    healthcheck:
+      test: [ "CMD", "mongo", "--eval", "db.adminCommand('ping')" ]
+      interval: 5s
+      start_period: 10s
+
+  # роутер
+  mongos_router:
+    container_name: mongos_router
+    image: dh-mirror.gitverse.ru/mongo:latest
+    restart: always
+    networks:
+      app-network:
+        ipv4_address: 173.17.0.7
+    command: mongos --configdb configReplSet/configsvr:27017 --bind_ip_all --port 27017
+    depends_on:
+      - configsvr
+    ports:
+      - 27017:27017
+
+
+  # Ваше приложение
+  pymongo_api:
+    container_name: pymongo_api
+    build: 
+      context: api_app
+      dockerfile: Dockerfile
+    depends_on:
+      - mongos_router
+    ports:
+      - 8080:8080
+    environment:
+      # Подключаемся к роутеру
+      MONGODB_URL: "mongodb://mongos_router:27017"
+      MONGODB_DATABASE_NAME: "somedb"
+    networks:
+      app-network:
+        ipv4_address: 173.17.0.2
+ 
+networks:
+  app-network:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 173.17.0.0/16
+volumes:
+  configsvr_data:
+  shard1_data:
+  shard2_data:

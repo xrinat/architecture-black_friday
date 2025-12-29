@@ -1,0 +1,66 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36" version="29.2.9">
+  <diagram name="Sharded-Replicated-Architecture" id="z24WUS1lRmqtuw-pPBdt">
+    <mxGraphModel dx="1426" dy="785" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="kigoEo3SChdf85YlEBCs-21" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="pymongo-api" vertex="1">
+          <mxGeometry height="60" width="120" x="470" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="kigoEo3SChdf85YlEBCs-22" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Router" vertex="1">
+          <mxGeometry height="60" width="120" x="470" y="230" as="geometry" />
+        </mxCell>
+        <mxCell id="kigoEo3SChdf85YlEBCs-27" parent="1" style="swimlane;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="shard1 (Группа репликации)" vertex="1">
+          <mxGeometry height="150" width="280" x="190" y="390" as="geometry" />
+        </mxCell>
+        <mxCell id="kigoEo3SChdf85YlEBCs-28" parent="kigoEo3SChdf85YlEBCs-27" style="shape=cylinder3;whiteSpace=wrap;html=1;size=15;fillColor=#b1ddf0;" value="Primary" vertex="1">
+          <mxGeometry height="80" width="70" x="20" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="kigoEo3SChdf85YlEBCs-29" parent="kigoEo3SChdf85YlEBCs-27" style="shape=cylinder3;whiteSpace=wrap;html=1;size=15;" value="Secondary" vertex="1">
+          <mxGeometry height="80" width="70" x="105" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="kigoEo3SChdf85YlEBCs-30" parent="kigoEo3SChdf85YlEBCs-27" style="shape=cylinder3;whiteSpace=wrap;html=1;size=15;" value="Secondary" vertex="1">
+          <mxGeometry height="80" width="70" x="190" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="kigoEo3SChdf85YlEBCs-31" parent="1" style="swimlane;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;startSize=23;" value="shard2 (Группа репликации)" vertex="1">
+          <mxGeometry height="150" width="280" x="590" y="390" as="geometry" />
+        </mxCell>
+        <mxCell id="kigoEo3SChdf85YlEBCs-32" parent="kigoEo3SChdf85YlEBCs-31" style="shape=cylinder3;whiteSpace=wrap;html=1;size=15;fillColor=#b1ddf0;" value="Primary" vertex="1">
+          <mxGeometry height="80" width="70" x="20" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="kigoEo3SChdf85YlEBCs-33" parent="kigoEo3SChdf85YlEBCs-31" style="shape=cylinder3;whiteSpace=wrap;html=1;size=15;" value="Secondary" vertex="1">
+          <mxGeometry height="80" width="70" x="105" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="kigoEo3SChdf85YlEBCs-34" parent="kigoEo3SChdf85YlEBCs-31" style="shape=cylinder3;whiteSpace=wrap;html=1;size=15;" value="Secondary" vertex="1">
+          <mxGeometry height="80" width="70" x="190" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="kigoEo3SChdf85YlEBCs-35" edge="1" parent="1" source="kigoEo3SChdf85YlEBCs-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="kigoEo3SChdf85YlEBCs-22">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="kigoEo3SChdf85YlEBCs-36" edge="1" parent="1" source="kigoEo3SChdf85YlEBCs-22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="kigoEo3SChdf85YlEBCs-39">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="800" y="260" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kigoEo3SChdf85YlEBCs-37" edge="1" parent="1" source="kigoEo3SChdf85YlEBCs-22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.25;exitY=1;entryX=0.5;entryY=0;" target="kigoEo3SChdf85YlEBCs-27">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="kigoEo3SChdf85YlEBCs-38" edge="1" parent="1" source="kigoEo3SChdf85YlEBCs-22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.75;exitY=1;entryX=0.5;entryY=0;" target="kigoEo3SChdf85YlEBCs-31">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="kigoEo3SChdf85YlEBCs-39" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" value="configSrv" vertex="1">
+          <mxGeometry height="60" width="110" x="675" y="230" as="geometry" />
+        </mxCell>
+        <mxCell id="kigoEo3SChdf85YlEBCs-40" parent="1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#f8cecc;strokeColor=#b85450;" value="redis" vertex="1">
+          <mxGeometry height="80" width="80" x="690" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="kigoEo3SChdf85YlEBCs-41" edge="1" parent="1" source="kigoEo3SChdf85YlEBCs-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;entryX=0;entryY=0.5;strokeWidth=2;dashed=1;" target="kigoEo3SChdf85YlEBCs-40" value="Кэширование">
+          <mxGeometry relative="1" x="-0.2" y="10" as="geometry">
+            <mxPoint as="offset" />
+            <mxPoint x="590" y="140" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
